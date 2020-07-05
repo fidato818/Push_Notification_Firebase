@@ -13,6 +13,23 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 // getting messaging Object from firebase
 
+function clickme() {
+    var text = document.getElementById('text').value
+    var message = document.getElementById('message').value
+    var obj = {
+
+        text,
+        message
+    }
+    console.log("obj: ", obj)
+
+    firebase.database().ref('clickData').push().set(obj).then((e) => {
+        console.log('success', e)
+    }).catch(err => {
+        console.log("Error:", err)
+    })
+}
+
 const messaging = firebase.messaging();
 messaging.requestPermission().then(function () {
     console.log('Notification permission granted.');
